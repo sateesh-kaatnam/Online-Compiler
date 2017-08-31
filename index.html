@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <script type='text/javascript' src='ace-builds/src-noconflict/ace.js' charset='utf-8'></script>
+<title>Code Compile and Run</title>
+</head>
+<body>
+<script type="text/javascript" src="myscripts.js"></script>
+<div class="Column" id="editor" name="codeeditor">//Enter Your Code Here.
+</div>
+<div id="buttons-bar">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li>
+      <select id="language" onchange= selectLanguage() class="form-control">
+          <option>C</option>
+          <option>C++</option>
+          <option>Java</option>
+          <option>Python</option>
+        </select>
+        </li>
+    </ul>
+   
+    <ul class="nav navbar-nav justified">
+        <li><input type="button" class="btn btn-success" id="Run" value="Compile & Run >>"></li>
+    </ul>
+
+   <ul class="nav navbar-nav navbar-right">
+      <li><input type="button" class="btn btn-success" value="Save File"></li>
+    </ul>
+  </div>
+</nav>
+</div>
+<textarea  id="input" placeholder="Enter your inputs here"></textarea>
+<font id="stdout-msg" color="red" size="4">Output:</font>
+<textarea readonly id="stdout" placeholder="Output"></textarea>
+<div id="quotes"><b>"Code 21<sup>st</sup> Century's Oxyzen."</b></div>
+<div id="byname"><b>Developed by "Sateesh Kaatnam..!"</b></div>
+<script>
+var editor = ace.edit("editor");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/c_cpp");
+</script>
+
+</body>
+</html>
