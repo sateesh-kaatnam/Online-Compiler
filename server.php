@@ -1,7 +1,7 @@
 <?php
 if( (isset($_POST['code'])) && (isset($_POST['lang'])) && (isset($_POST['input']))){
 $url = 'http://api.hackerrank.com/checker/submission.json';
-$key = 'hackerrank|974083-1811|2ed396350187cee20dc6053228770947d2d6dbf0';
+$key = "Enter API KEY FROM HACKERRANK";
 $code=$_POST['code'];
 $lang=$_POST['lang'];
 $input=$_POST['input'];
