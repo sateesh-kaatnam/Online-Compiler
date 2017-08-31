@@ -77,7 +77,7 @@ function getInputs(){
 		testCases.push(" ");
 	return JSON.stringify(testCases)
 }
-
+//Returns the language selected to the ACE editor mode function.
 function selectLanguage(){
 
 	var language=document.getElementById("language").value;
