@@ -16,6 +16,7 @@ $("#Run").click(function(){
       			input: inputs 
         		},
     		success: function (response) {
+
     			displayOutput(response);
     			
         	},
@@ -34,18 +35,13 @@ $("#Run").click(function(){
 //Displays the output to the user.
 function displayOutput(response){
 	
-	if(response.result.compilemessage=="" && response.result.message[0]=="Success")
+	if(response.result.compilemessage=="")
 		$("#stdout").text(response.result.stdout[0]);
 	else{
 		var output="";
-		if(response.result.message){
-			output=response.result.message[0]+"\n"+response.result.stderr[0];
-			$("#stdout").text(output);
-		}
-		else{
-			output=decodeURIComponent(escape(response.result.compilemessage));	
-			$("#stdout").text(output);
-			}
+		output=decodeURIComponent(escape(response.result.compilemessage));	
+		$("#stdout").text(output);
+			
 	}
 }
 
@@ -77,7 +73,7 @@ function getInputs(){
 		testCases.push(" ");
 	return JSON.stringify(testCases)
 }
-//Returns the language selected to the ACE editor mode function.
+
 function selectLanguage(){
 
 	var language=document.getElementById("language").value;
@@ -111,3 +107,56 @@ $(document).ready(function () {
         $("#stdout").text("Compiling Please Wait..!");
     });
 });
+
+
+$(function(){
+    $('#save').click(function() {
+        saveTextAsFile();
+    });
+});
+
+//Returns extension for file as per selected language
+function getExtension(){
+var language=document.getElementById("language").value;
+switch(language){
+	case "C":language=".c"
+		 break;
+	case "C++":language=".cpp"
+		 break;
+	case "Java":language=".java"
+		 break;	 	 
+	case "Python":language=".py"
+		 break;	
+	}
+return language;
+}
+
+//To save the code written.
+function saveTextAsFile()
+{
+    var editor = ace.edit("editor");
+    var textToWrite = (editor.getValue());;
+    var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'});
+    var fileNameToSaveAs = "srccode"+getExtension();
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    if (window.URL != null)
+    {
+        // Chrome allows the link to be clicked
+        // without actually adding it to the DOM.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+    }
+    else
+    {
+        // Firefox requires the link to be added to the DOM
+        // before it can be clicked.
+        downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+        downloadLink.onclick = destroyClickedElement;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+    }
+
+    downloadLink.click();
+}
